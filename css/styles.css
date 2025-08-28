@@ -22,7 +22,7 @@ nav a {
   user-select: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px)  {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
   }
@@ -41,7 +41,7 @@ nav a {
   font-weight: bold;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px)  and (max-width: 1024px){
   .jumbotron {
     padding-top: 6rem;
     padding-bottom: 6rem;

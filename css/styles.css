@@ -226,3 +226,8 @@ a.custom-card:hover {
   gap: 30px;
   justify-content: center;
 }
+
+#mostrar-usuario {
+  color: #f2f3f4;
+  font-style: italic;
+}

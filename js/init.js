@@ -39,3 +39,9 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+
+//mostrar el nombre de usuario en la barra de navegacion
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('mostrar-usuario').textContent = sessionStorage.getItem('usuario');
+});

@@ -34,32 +34,27 @@ nav a {
   margin-bottom: 0;
   background-color: #53C0FB;
   background: url('../img/cover_back.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   color: black;
   font-weight: bold;
 }
-.jumbotron .desktop {
-  background: url('../img/cover_back.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
-.jumbotron .mobile {
-  background: url('../img/cover_back_mobile.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: none;
-}
 
-@media (max-width: 767.98px) {
-  .jumbotron .desktop {
-    display: none;
+@media (max-width: 768px) {
+  .jumbotron  {
+    background: url('../img/cover_back.png');
+   background-size: contain;
+   background-position: center;
+   background-repeat: no-repeat;
+   display: none;
   }
-  .jumbotron .mobile {
+  .jumbotron {
+    background: url('../img/cover_back_mobile.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     display: block;
   }
 }

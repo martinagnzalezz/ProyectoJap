@@ -34,11 +34,29 @@ nav a {
   margin-bottom: 0;
   background-color: #53C0FB;
   background: url('../img/cover_back.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   color: black;
   font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+  .jumbotron  {
+    background: url('../img/cover_back.png');
+   background-size: contain;
+   background-position: center;
+   background-repeat: no-repeat;
+   display: none;
+  }
+  .jumbotron {
+    background: url('../img/cover_back_mobile.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+  }
 }
 
 @media (min-width: 768px) {

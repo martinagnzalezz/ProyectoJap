@@ -12,3 +12,13 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
+document.addEventListener('DOMContentLoaded', function() {
+    // Verifica si el usuario esta logueado
+    if (!sessionStorage.getItem('loggedIn')) {
+        //Muestra yba alerta indicando que debe loguearse
+        alert('Debe iniciar sesion para acceder a esta pagina.');
+
+        // Redirige a la pagina de login
+        window.location.href = 'login.html';
+    }
+});

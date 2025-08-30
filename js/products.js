@@ -14,13 +14,13 @@ function mostrarProductos(lista) {
   lista.forEach(producto => {
     const html = `
       <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
-          <img src="${producto.image}" class="card-img-top" alt="${producto.name}">
+        <div class="card h-100 text-center">
+          <img src="${producto.image}" class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height:180px;" alt="${producto.name}">
           <div class="card-body">
-            <h5 class="card-title">${producto.name}</h5>
+            <h5 class="card-title text-uppercase fw-bold">${producto.name}</h5>
             <p class="card-text">${producto.description}</p>
-            <p><strong>Precio:</strong> ${producto.currency} ${producto.cost}</p>
-            <p><small class="text-muted">Vendidos: ${producto.soldCount}</small></p>
+            <p class="precio">Precio: ${producto.currency} ${producto.cost}</p>
+            <p class="vendidos">Vendidos: ${producto.soldCount}</p>
           </div>
         </div>
       </div>

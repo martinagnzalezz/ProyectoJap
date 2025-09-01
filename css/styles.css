@@ -21,77 +21,141 @@ nav a {
   -ms-user-select: none;
   user-select: none;
 }
+/********************************************************/
 
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
-  }
+/*Comienzo estilos de login.html*/
+.login-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  position: relative;
 }
-
-.jumbotron {
-  height: 50vh;
-  padding: 5em inherit;
-  margin-bottom: 0;
-  background-color: #53C0FB;
-  background: url('../img/cover_back.png');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: black;
+.logo-login {
+  display: block;
+  max-width: 500px;
+  margin: 100px auto 20px auto;
+}
+.login-form {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.486);
+  text-align: left;
+  width: 350px;
+  min-height: 400px;
+  margin-bottom: 8rem;
+}
+.login-form h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #0a0a1a;
   font-weight: bold;
 }
-
-
-@media (max-width: 768px) {
-  .jumbotron  {
-    background: url('../img/cover_back.png');
-   background-size: contain;
-   background-position: center;
-   background-repeat: no-repeat;
-   display: none;
-  }
-  .jumbotron {
-    background: url('../img/cover_back_mobile.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: block;
-  }
+.login-form label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 5px;
 }
-
-@media (min-width: 768px) {
-  .jumbotron {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-  }
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f5f5f7;
+  font-size: 1rem;
 }
-
-.jumbotron p:last-child {
-  margin-bottom: 0;
+.login-form input:focus {
+  outline: none;
+  border-color: #007bff;
+  background: #eef3ff;
 }
-
-.jumbotron-heading {
-  font-weight: 300;
+.login-form button {
+  width: 100%;
+  padding: 12px;
+  background: #0a0a1a;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
 }
-
-.jumbotron .container {
-  max-width: 40rem;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-  text-shadow: 1px 1px 2px grey;
+.login-form button:hover {
+  background: #1a1a2e;
 }
-
-.jumbotron .lead {
-  font-size: 38px;
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  position: relative;
 }
+.imagen-macaco-login {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  max-width: 650px;
+  height: auto;
+  opacity: 0.18;
+  z-index: -1;
+  pointer-events: none;
+}
+/*Fin estilos de login.html*/
+
+/********************************************************/
+
+/*Comienzo estilos para products.html*/
+.card-img-top {
+  object-fit: cover;
+  width: 100%;
+  height: 240px;
+  padding: 0;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+#product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.precio {
+  color: green;
+  font-weight: bold;
+}
+.vendidos {
+  color: #999 !important;
+}
+/*Fin estilos para prodcuts.html*/
+
+/********************************************************/
 
 footer {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  margin-top: 60px;
+  padding: 10px;
+  font-size: 0.85rem;
+  color: #555;
+  border-top: 1px solid #ddd;
+  width: 100%;
 }
 
-footer p {
-  margin-bottom: .25rem;
+footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
 
 .site-header a {
@@ -169,7 +233,7 @@ footer p {
   0% {
     transform: rotate(0deg);
   }
-
+  
   100% {
     transform: rotate(360deg);
   }
@@ -229,23 +293,182 @@ a.custom-card:hover {
   color: #555;
 }
 
-.precio {
-  color: green;
-  font-weight: bold;
-}
-
-.vendidos {
-  color: #999 !important;
-}
-
-#product-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
-}
-
 #mostrar-usuario {
   color: #f2f3f4;
   font-style: italic;
 }
+
+/********************************************************/
+
+/*Comienzo responsive*/
+/*Partimos de desktop*/
+.jumbotron {
+  height: 70vh;
+  padding: 5em inherit;
+  margin-bottom: 0;
+  background-color: #53C0FB;
+  background: url('../img/cover_back.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: black;
+  font-weight: bold;
+}
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+.jumbotron-heading {
+  font-weight: 300;
+}
+.jumbotron .container {
+  max-width: 40rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  text-shadow: 1px 1px 2px grey;
+}
+.jumbotron .lead {
+  font-size: 38px;
+}
+
+/*Tablet generica vertical/horizontal*/
+@media (max-width: 991px) {
+  .jumbotron {
+    height: 50vh;
+    background-color: #53C0FB;
+    background: url('../img/cover_back.png');
+    background-size: 250%;
+    background-position: 20% center;
+    background-repeat: no-repeat;
+    margin-top: 0;
+    padding-top: 0rem;
+  }
+  /*Comienzo seccion media query para products.html*/
+  .navbar {
+    background-color: #F09100 !important;;
+  }
+  .navbar-brand img {
+    content: url('../img/logo-e-mercado-naranja.png');
+  }
+  #navbarNav {
+    text-align: right;
+    padding-right: 1rem;
+  }
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    justify-items: center;
+  }
+  footer {
+    text-align: center;
+    margin-top: 0;
+  }
+  /*Fin seccion media query para products.html*/
+}
+/*Mobile generico*/
+@media (max-width: 767px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+/*Mobile chicos (ej: iPhone SE)*/
+@media (max-width: 375px) {
+  .navbar {
+    background-color: #F09100 !important;;
+  }
+  .navbar-brand img {
+    content: url('../img/logo-e-mercado-naranja.png');
+  }
+  #navbarNav {
+    text-align: right;
+    padding-right: 1rem;
+  }
+
+  /*Comienzo seccion para login.html*/
+  .logo-login {
+    max-width: 300px;
+    margin: 4rem auto 0 auto;
+  }
+  .login-container {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  .login-form {
+    width: 100%;
+    max-width: 300px;
+    margin: 0rem auto 0rem auto;
+    min-height: 200px;
+  }
+  .volver-al-inicio {
+    display: none;
+  }
+  .imagen-macaco-login {
+    display: none;
+  }
+  /*Fin seccion para login.html*/
+
+  footer .container {
+    flex-direction: column;
+  }
+
+  /*Comienzo seccion para index.html*/
+  .jumbotron {
+    background: url('../img/cover_back_mobile.png');
+    background-size: 110%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: auto;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+
+  .album {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 0;
+  }
+  .volver-arriba {
+    display: none;
+  }
+  /*Fin seccion para index.html*/
+
+  /*Comienzo seccion para categories.html*/
+  .categories p {
+    font-size: 1rem !important;
+  }
+  .categories h4 {
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+  }
+  #cat-list-container p {
+    font-size: 0.85rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .filtros input[type="number"] {
+    width: 80px !important;
+  }
+  .filtros input,
+  .filtros button {
+    font-size: 0.8rem !important;
+    padding: 0.2rem 0.4rem !important;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 0;
+  }
+  /*Fin seccion para categories.html*/
+
+  .volver-arriba {
+    display: none;
+  }
+}
+/*Fin responsive*/
+
+/********************************************************/

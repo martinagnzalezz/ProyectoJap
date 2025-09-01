@@ -13,9 +13,9 @@ function mostrarProductos(lista) {
 
   lista.forEach(producto => {
     const html = `
-      <div class="col-md-4 mb-4">
+      <div class="col-12 col-sm-6 col-lg-4 mb-4">
         <div class="card h-100 text-center">
-          <img src="${producto.image}" class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height:180px;" alt="${producto.name}">
+          <img src="${producto.image}" class="card-img-top" alt="${producto.name}">
           <div class="card-body">
             <h5 class="card-title text-uppercase fw-bold">${producto.name}</h5>
             <p class="card-text">${producto.description}</p>

@@ -34,15 +34,24 @@ function mostrarProductos(lista) {
 
 btnSortAsc.addEventListener("click", () => {
   mostrarProductos(productos.sort((a, b) => a.cost - b.cost));
+  const min = parseInt(document.getElementById("precioMin").value) || 0;
+  const max = parseInt(document.getElementById("precioMax").value) || Infinity;
+  const filtrados = productos.filter(p => p.cost >= min && p.cost <= max);
+  mostrarProductos(filtrados);
 });
 
 btnSortDesc.addEventListener("click", () => {
   mostrarProductos(productos.sort((a, b) => b.cost - a.cost));
+  const min = parseInt(document.getElementById("precioMin").value) || 0;
+  const max = parseInt(document.getElementById("precioMax").value) || Infinity;
+  const filtrados = productos.filter(p => p.cost >= min && p.cost <= max);
+  mostrarProductos(filtrados);
 });
 
 
-//btnFiltrar.addEventListener("click", () => {
-//const min = parseInt(document.getElementById("precioMin").value) || 0;
-//const max = parseInt(document.getElementById("precioMax").value) || Infinity;
-//const filtrados = productos.filter(p => p.cost >= min && p.cost <= max);
-//mostrarProductos(filtrados);//
+btnFiltrar.addEventListener("click", () => {
+const min = parseInt(document.getElementById("precioMin").value) || 0;
+const max = parseInt(document.getElementById("precioMax").value) || Infinity;
+const filtrados = productos.filter(p => p.cost >= min && p.cost <= max);
+mostrarProductos(filtrados);
+});

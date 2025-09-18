@@ -3,16 +3,39 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(response => response.json())
     .then(data => {
       productos = data.products;
-      mostrarProductos(data.products.sort((a, b) => b.soldCount - a.soldCount));
+      filtrados = [...productos];
+      mostrarProductos(productos.sort((a, b) => b.soldCount - a.soldCount));
     })
     .catch(error => console.error("Error al cargar productos:", error));
 });
 
+let productos = [];
+let filtrados = [];
 
+function procesarProductos(ordenarPor = null) {
+  let lista = [...productos];
+  
+  if (ordenarPor === 'asc') {
+    lista.sort((a, b) => a.cost - b.cost);
+  } else if (ordenarPor === 'desc') {
+    lista.sort((a, b) => b.cost - a.cost);
+  }
+  
+  let min = parseInt(document.getElementById("precioMin").value) || 0;
+  let max = parseInt(document.getElementById("precioMax").value) || Infinity;
+  filtrados = lista.filter(p => p.cost >= min && p.cost <= max);
+  
+  mostrarProductos(filtrados);
+}
 
 function mostrarProductos(lista) {
   const container = document.getElementById("product-list");
-  container.innerHTML = ""; 
+  container.innerHTML = "";
+
+  if (lista.length === 0) {
+    container.innerHTML = '<p class="col-12 text-center">No se encontraron productos</p>';
+    return;
+  }
 
   lista.forEach(producto => {
     const html = `
@@ -32,26 +55,27 @@ function mostrarProductos(lista) {
   });
 }
 
-btnSortAsc.addEventListener("click", () => {
-  mostrarProductos(productos.sort((a, b) => a.cost - b.cost));
-  const min = parseInt(document.getElementById("precioMin").value) || 0;
-  const max = parseInt(document.getElementById("precioMax").value) || Infinity;
-  const filtrados = productos.filter(p => p.cost >= min && p.cost <= max);
-  mostrarProductos(filtrados);
-});
+function buscarProducto() {
+  const texto = document.getElementById("inputBusqueda").value.toLowerCase();
+  
+  if (texto === '') {
+    mostrarProductos(filtrados);
+    return;
+  }
+  
+  let buscado = filtrados.filter(p => 
+    p.name.toLowerCase().includes(texto) || 
+    p.description.toLowerCase().includes(texto)
+  );
+  
+  mostrarProductos(buscado);
+}
 
-btnSortDesc.addEventListener("click", () => {
-  mostrarProductos(productos.sort((a, b) => b.cost - a.cost));
-  const min = parseInt(document.getElementById("precioMin").value) || 0;
-  const max = parseInt(document.getElementById("precioMax").value) || Infinity;
-  const filtrados = productos.filter(p => p.cost >= min && p.cost <= max);
-  mostrarProductos(filtrados);
-});
-
-
+btnSortAsc.addEventListener("click", () => procesarProductos('asc'));
+btnSortDesc.addEventListener("click", () => procesarProductos('desc'));
 btnFiltrar.addEventListener("click", () => {
-const min = parseInt(document.getElementById("precioMin").value) || 0;
-const max = parseInt(document.getElementById("precioMax").value) || Infinity;
-const filtrados = productos.filter(p => p.cost >= min && p.cost <= max);
-mostrarProductos(filtrados);
+  procesarProductos();
+  document.getElementById("inputBusqueda").value = '';
 });
+
+document.getElementById("inputBusqueda").addEventListener("input", buscarProducto);

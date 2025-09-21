@@ -1,7 +1,10 @@
 
 document.addEventListener("DOMContentLoaded", () => {
+
   const catID = localStorage.getItem("catID");
+  
   const url = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
+
   fetch(url)
     .then(response => response.json())
     .then(data => {
@@ -43,7 +46,7 @@ function mostrarProductos(lista) {
   lista.forEach(producto => {
     const html = `
       <div class="col-12 col-sm-6 col-lg-4 mb-4">
-        <div class="card h-100 text-center">
+        <div class="card h-100 text-center product-card" onclick="verProducto(${producto.id})">
           <img src="${producto.image}" class="card-img-top" alt="${producto.name}">
           <div class="card-body">
             <h5 class="card-title text-uppercase fw-bold">${producto.name}</h5>
@@ -57,6 +60,7 @@ function mostrarProductos(lista) {
     container.innerHTML += html;
   });
 }
+
 
 function buscarProducto() {
   const texto = document.getElementById("inputBusqueda").value.toLowerCase();
@@ -82,3 +86,4 @@ btnFiltrar.addEventListener("click", () => {
 });
 
 document.getElementById("inputBusqueda").addEventListener("input", buscarProducto);
+

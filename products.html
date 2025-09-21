@@ -42,8 +42,34 @@
   </nav>
 
   <main class="container mt-5">
-     <div class="row" id="product-list">
+    <div class="card p-3 mb-4">
+    <form id="filter-form" class="row g-3 align-items-center">
+      
+      <div class="col-md-4">
+        <input type="text" class="form-control" id="inputBusqueda" placeholder="Buscar producto...">
+      </div>
+
+      <div class="col-md-2">
+        <input type="number" class="form-control" id="precioMin" placeholder="Precio mín.">
+      </div>
+      <div class="col-md-2">
+        <input type="number" class="form-control" id="precioMax" placeholder="Precio máx.">
+      </div>
+
+      <div class="col-md-1 d-grid">
+        <button type="button" id="btnFiltrar" class="btn btn-primary">Filtrar</button>
+      </div>
+    </form>
+
+  
+    <div class="mt-3">
+      <button class="btn btn-outline-secondary btn-sm" id="btnSortAsc">Ordenar ↑ Precio</button>
+      <button class="btn btn-outline-secondary btn-sm" id="btnSortDesc">Ordenar ↓ Precio</button>
     </div>
+  </div>
+
+  <div class="row" id="product-list">
+  </div>
   </main>
 
   <footer class="text-muted border-top pt-3">

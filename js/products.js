@@ -1,20 +1,47 @@
-document.addEventListener("DOMContentLoaded", () => {
-  
-  const catID = localStorage.getItem("catID");
 
+document.addEventListener("DOMContentLoaded", () => {
+
+  const catID = localStorage.getItem("catID");
+  
   const url = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
 
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      mostrarProductos(data.products);
+      productos = data.products;
+      filtrados = [...productos];
+      mostrarProductos(productos.sort((a, b) => b.soldCount - a.soldCount));
     })
     .catch(error => console.error("Error al cargar productos:", error));
 });
 
+let productos = [];
+let filtrados = [];
+
+function procesarProductos(ordenarPor = null) {
+  let lista = [...productos];
+  
+  if (ordenarPor === 'asc') {
+    lista.sort((a, b) => a.cost - b.cost);
+  } else if (ordenarPor === 'desc') {
+    lista.sort((a, b) => b.cost - a.cost);
+  }
+  
+  let min = parseInt(document.getElementById("precioMin").value) || 0;
+  let max = parseInt(document.getElementById("precioMax").value) || Infinity;
+  filtrados = lista.filter(p => p.cost >= min && p.cost <= max);
+  
+  mostrarProductos(filtrados);
+}
+
 function mostrarProductos(lista) {
   const container = document.getElementById("product-list");
-  container.innerHTML = ""; 
+  container.innerHTML = "";
+
+  if (lista.length === 0) {
+    container.innerHTML = '<p class="col-12 text-center">No se encontraron productos</p>';
+    return;
+  }
 
   lista.forEach(producto => {
     const html = `
@@ -34,7 +61,29 @@ function mostrarProductos(lista) {
   });
 }
 
-function verProducto(id) {
-  localStorage.setItem("productID", id);
-  window.location = "product-info.html";
+
+function buscarProducto() {
+  const texto = document.getElementById("inputBusqueda").value.toLowerCase();
+  
+  if (texto === '') {
+    mostrarProductos(filtrados);
+    return;
+  }
+  
+  let buscado = filtrados.filter(p => 
+    p.name.toLowerCase().includes(texto) || 
+    p.description.toLowerCase().includes(texto)
+  );
+  
+  mostrarProductos(buscado);
 }
+
+btnSortAsc.addEventListener("click", () => procesarProductos('asc'));
+btnSortDesc.addEventListener("click", () => procesarProductos('desc'));
+btnFiltrar.addEventListener("click", () => {
+  procesarProductos();
+  document.getElementById("inputBusqueda").value = '';
+});
+
+document.getElementById("inputBusqueda").addEventListener("input", buscarProducto);
+

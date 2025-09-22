@@ -469,6 +469,14 @@ a.custom-card:hover {
     display: none;
   }
 }
+
+/*Comienzo seccion para products-info.html*/
+#breadcrumb {
+  font-size: 11px;
+}
+/*Fin seccion para products-info.html*/
+
 /*Fin responsive*/
+
 
 /********************************************************/

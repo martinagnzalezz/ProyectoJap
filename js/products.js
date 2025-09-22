@@ -87,3 +87,8 @@ btnFiltrar.addEventListener("click", () => {
 
 document.getElementById("inputBusqueda").addEventListener("input", buscarProducto);
 
+/*Guarda el id en LocalStorage y redirige a product-info.html*/
+function verProducto(id) {
+  localStorage.setItem("productID", id);
+  window.location.href = "product-info.html";
+}

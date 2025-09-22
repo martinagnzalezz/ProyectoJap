@@ -1,28 +1,44 @@
 document.addEventListener("DOMContentLoaded", () => {
   const productID = localStorage.getItem("productID");
-
+  
   if (!productID) {
     console.error("No se encontró productID en localStorage");
     return;
   }
-
-  const url = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
-
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      mostrarInfoProducto(data);
-    })
-    .catch(error => console.error("Error al cargar producto:", error));
+  
+  const urlPrd = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
+  
+  fetch(urlPrd)
+  .then(response => response.json())
+  .then(producto => {
+    mostrarInfoProducto(producto);
+    
+  })
+  .catch(error => console.error("Error al cargar producto:", error));  
 });
 
 function mostrarInfoProducto(producto) {
+  const catID = localStorage.getItem("catID");
   const container = document.querySelector("main .container");
   container.innerHTML = `
+  
+    <div class="text-center my-4">
+      <h1 class="fw-bold">${producto.name}</h1>
+        <nav id="breadcrumb" class="mb-3 text-muted">
+        <a href="categories.html">Categorías</a> &gt;
+        <a 
+          href="products.html" 
+          onclick="localStorage.setItem('catID','${catID}');"
+        >
+          ${producto.category}
+        </a> &gt;
+        ${producto.name}
+      </nav>
+    </div>
+
     <div class="card mx-auto shadow p-3 mb-5 bg-body rounded" style="max-width: 600px;">
       <img id="main-image" src="${producto.images[0]}" class="card-img-top" alt="${producto.name}">
       <div class="card-body text-center">
-        <h4 class="fw-bold">${producto.name}</h4>
         <p>${producto.description}</p>
         <p><span class="fw-bold text-success">Precio:</span> ${producto.currency} ${producto.cost}</p>
         <p>Vendidos: ${producto.soldCount}</p>
@@ -39,8 +55,9 @@ function mostrarInfoProducto(producto) {
           </div>
         `).join("")}
     </div>
-  `;
 
+    `;
+    
   
   if (!document.getElementById("imageModal")) {
     document.body.insertAdjacentHTML("beforeend", `

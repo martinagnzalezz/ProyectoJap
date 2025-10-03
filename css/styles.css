@@ -1,3 +1,10 @@
+:root {
+  --color-naranja: #F09100;
+  --transition-fast: 0.2s;
+  --transition-medium: 0.4s;
+  --transition-slow: 0.6s;
+}
+
 .jumbotron,
 .card-body,
 .container,
@@ -344,7 +351,7 @@ a.custom-card:hover {
   }
   /*Comienzo seccion media query para products.html*/
   .navbar {
-    background-color: #F09100 !important;;
+    background-color: var(--color-naranja) !important;;
   }
   .navbar-brand img {
     content: url('../img/logo-e-mercado-naranja.png');
@@ -374,7 +381,7 @@ a.custom-card:hover {
 /*Mobile chicos (ej: iPhone SE)*/
 @media (max-width: 375px) {
   .navbar {
-    background-color: #F09100 !important;;
+    background-color: var(--color-naranja) !important;;
   }
   .navbar-brand img {
     content: url('../img/logo-e-mercado-naranja.png');
@@ -474,6 +481,82 @@ a.custom-card:hover {
 #breadcrumb {
   font-size: 11px;
 }
+
+#rating-title {
+  /* color: #F09100; */
+  display: inline-block;
+  position: relative;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#rating-title:hover {
+  transform: scale(1.05);
+  transition: transform var(--transition-fast);
+}
+
+.rating-estrella i {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #ddd;
+  transition: color var(--transition-fast);
+}
+
+.rating-estrella i.fas {
+  color: var(--color-naranja);
+}
+
+.rating-radio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rating-radio p{
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.rating-radio-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.rating-radio label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.rating-radio label:hover {
+  color: var(--color-naranja);
+  transition: color var(--transition-fast);
+}
+
+.rating-radio input[type="radio"] {
+  margin-right: 0.5rem;
+  accent-color: var(--color-naranja);
+  cursor: pointer;
+}
+
+.rating-texto {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+#btn-enviar {
+  background-color: var(--color-naranja);
+  border: none;
+  font-weight: bold;
+}
+
+#btn-enviar:hover {
+  background-color: #d67c00;
+  transition: background-color var(--transition-fast);
+}
+
 /*Fin seccion para products-info.html*/
 
 /*Fin responsive*/

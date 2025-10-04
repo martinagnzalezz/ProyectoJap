@@ -45,6 +45,33 @@
   </nav>
   <main>
     <div class="container mt-5" id="product-info-container"></div>
+    <div class="container mt-5 border rounded shadow-sm p-4" id="product-info-review">
+      <h3 class="rating-title mb-4" id="rating-title">Califica el producto!</h3>
+      <div class="mb-3">
+        <!--Estrellas de puntaje-->
+        <div class="d-flex rating-estrella justify-content-center justify-content-sm-start mb-4" id="rating-estrella">
+          <i class="far fa-star" data-value="1" tabindex="0"></i>
+          <i class="far fa-star" data-value="2" tabindex="0"></i>
+          <i class="far fa-star" data-value="3" tabindex="0"></i>
+          <i class="far fa-star" data-value="4" tabindex="0"></i>
+          <i class="far fa-star" data-value="5" tabindex="0"></i>
+        </div>
+        <!--Radio de seleccion-->
+        <div class="rating-radio mb-4">
+          <p>Como conociste a este producto?</p>
+          <div class="d-flex rating-radio-options">
+            <label><input type=radio id="opt-personal" name="radio" value="El usuario posee este producto.">Lo compre para mi</label>
+            <label><input type=radio id="opt-otrolugar" name="radio" value="El usuario ha probado este producto antes.">Lo probe en otro lugar</label>
+            <label><input type=radio id="opt-nolotengo" name="radio" value="El usuario no posee este producto.">No lo tengo</label>
+          </div>
+        </div>
+        <!--Comentarios-->
+        <label for="rating-texto" class="rating-texto">Deja tu comentario:</label>
+        <textarea class="form-control" id="rating-texto" rows="3"></textarea>
+      </div>
+      <!--Boton Enviar-->
+      <button id="btn-enviar" class="btn btn-primary mt-3">Enviar</button>
+    </div>
   </main>
   <footer class="text-muted border-top pt-3">
     <div class="container d-flex justify-content-between align-items-center">

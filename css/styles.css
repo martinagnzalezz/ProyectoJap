@@ -634,10 +634,10 @@ a.custom-card:hover {
 
   #carouselProduct .carousel-caption {
     font-size: 0.7rem; 
+  }
 }
 
 #carouselProduct .carousel-control-prev-icon,
 #carouselProduct .carousel-control-next-icon {
   filter: invert(0%) brightness(0%); 
-  background-size: 1.5rem; 
 }

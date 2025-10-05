@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarInfoProducto(producto);
     ratingEstrellas();
     formularioRating();
+    mostrarRatings();
     
   })
   .catch(error => console.error("Error al cargar producto:", error));  
@@ -148,6 +149,8 @@ function formularioRating() {
     //Guardamos el array actualizado en localStorage.
     localStorage.setItem(RATINGS_KEY, JSON.stringify(listaRatings));
 
+    mostrarRatings();
+
     //Limpiamos el formulario.
     estrellas.forEach(e => {
       e.classList.remove("fas", "text-warning");
@@ -159,7 +162,55 @@ function formularioRating() {
 }
 
 function mostrarRatings() {
-  
-}
+  // Si ya existe un contenedor de reseñas anterior, lo elimino para evitar que se dupliquen
+  const viejoContenedor = document.getElementById("ratings-container");
+  if (viejoContenedor) viejoContenedor.remove();
 
+  // Creo un nuevo contenedor para las reseñas
+  const contenedor = document.createElement("div");
+  contenedor.id = "ratings-container";
+  contenedor.classList.add("mt-4");
+
+  // Si todavía no hay reseñas guardadas, muestro un mensaje diciendolo
+  if (listaRatings.length === 0) {
+    contenedor.innerHTML = `<p class="text-muted">Todavía no hay calificaciones para este producto.</p>`;
+  } else {
+    // Si hay reseñas, las recorro en orden de las mas recientes a las mas antiguas
+    listaRatings.slice().reverse().forEach(rating => { // uso slice para no cambiar el orden original
+      // Creo un bloque (div) para cada reseña individual
+      const item = document.createElement("div");
+      item.classList.add("border", "p-3", "mb-2", "bg-white", "rounded");
+
+      // Agrego dentro del bloque todos los campos
+      item.innerHTML = `
+        <div class="d-flex justify-content-between">
+          <div>
+            ${'⭐'.repeat(rating.puntaje)}${'☆'.repeat(5 - rating.puntaje)}
+          </div>
+          <small class="text-muted">${rating.tiempoActualString}</small>
+        </div>
+        <p class="mb-1"><em>Cómo lo conociste:</em> ${rating.radioFrase}</p>
+        <p class="mb-0">${rating.comentario}</p>
+      `;
+
+      // Agrego cada reseña al contenedor principal
+      contenedor.appendChild(item);
+    });
+  }
+
+  //Selecciono el contenedor principal de la página donde se van a mostrar las reseñas
+  const main = document.querySelector("main .container");
+
+  let titulo = document.getElementById("titulo-reseñas");
+  if (!titulo) {
+    const hr = document.createElement("hr");
+    titulo = document.createElement("h3");
+    titulo.id = "titulo-reseñas";
+    titulo.textContent = "Reseñas del producto:";
+    main.appendChild(hr);
+    main.appendChild(titulo);
+  }
+  //Agrego el contenedor con todas las reseñas al main
+  main.appendChild(contenedor);
+}
 

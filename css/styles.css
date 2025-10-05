@@ -28,9 +28,49 @@ nav a {
   -ms-user-select: none;
   user-select: none;
 }
-/********************************************************/
 
-/*Comienzo estilos de login.html*/
+/* Estilos para product-info.html */
+#product-info-container .card-img-top {
+  height: 300px;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+
+#carouselProduct .carousel-item img {
+  height: 300px;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+
+#carouselProduct .carousel-caption {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0.5rem;
+  padding: 10px;
+}
+
+#rating {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#rating-estrella i {
+  font-size: 1.5rem;
+  margin-right: 5px;
+}
+
+#rating-texto {
+  resize: vertical;
+}
+
+#ratings-container .border {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#ratings-container p {
+  font-size: 0.9rem;
+}
+
+/* Estilos de login.html */
 .login-body {
   display: flex;
   flex-direction: column;
@@ -42,11 +82,13 @@ nav a {
   background-color: #fff;
   position: relative;
 }
+
 .logo-login {
   display: block;
   max-width: 500px;
   margin: 100px auto 20px auto;
 }
+
 .login-form {
   background: #fff;
   display: flex;
@@ -60,6 +102,7 @@ nav a {
   min-height: 400px;
   margin-bottom: 8rem;
 }
+
 .login-form h2 {
   text-align: center;
   font-size: 1.8rem;
@@ -67,12 +110,14 @@ nav a {
   color: #0a0a1a;
   font-weight: bold;
 }
+
 .login-form label {
   font-weight: bold;
   font-size: 0.9rem;
   display: block;
   margin-bottom: 5px;
 }
+
 .login-form input {
   width: 100%;
   padding: 10px;
@@ -82,11 +127,13 @@ nav a {
   background: #f5f5f7;
   font-size: 1rem;
 }
+
 .login-form input:focus {
   outline: none;
   border-color: #007bff;
   background: #eef3ff;
 }
+
 .login-form button {
   width: 100%;
   padding: 12px;
@@ -98,9 +145,11 @@ nav a {
   cursor: pointer;
   font-size: 1rem;
 }
+
 .login-form button:hover {
   background: #1a1a2e;
 }
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -108,6 +157,7 @@ nav a {
   gap: 60px;
   position: relative;
 }
+
 .imagen-macaco-login {
   position: fixed;
   bottom: 0;
@@ -118,11 +168,8 @@ nav a {
   z-index: -1;
   pointer-events: none;
 }
-/*Fin estilos de login.html*/
 
-/********************************************************/
-
-/*Comienzo estilos para products.html*/
+/* Estilos para products.html */
 .card-img-top {
   object-fit: cover;
   width: 100%;
@@ -131,22 +178,23 @@ nav a {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
 }
+
 #product-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
+
 .precio {
   color: green;
   font-weight: bold;
 }
+
 .vendidos {
   color: #999 !important;
 }
-/*Fin estilos para prodcuts.html*/
 
-/********************************************************/
-
+/* Estilos generales */
 footer {
   margin-top: 60px;
   padding: 10px;
@@ -199,6 +247,7 @@ footer a:hover {
   height: 64px;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .cursor-active {
@@ -240,7 +289,6 @@ footer a:hover {
   0% {
     transform: rotate(0deg);
   }
-  
   100% {
     transform: rotate(360deg);
   }
@@ -278,12 +326,11 @@ a.custom-card:hover {
   color: orange;
 }
 
-
 .card {
   border: 1px solid #ddd;
   border-radius: 5px;
-  box-shadow: none;   
-  transition: none;   
+  box-shadow: none;
+  transition: none;
 }
 
 .card:hover {
@@ -305,10 +352,7 @@ a.custom-card:hover {
   font-style: italic;
 }
 
-/********************************************************/
-
-/*Comienzo responsive*/
-/*Partimos de desktop*/
+/* Responsive */
 .jumbotron {
   height: 70vh;
   padding: 5em inherit;
@@ -321,23 +365,26 @@ a.custom-card:hover {
   color: black;
   font-weight: bold;
 }
+
 .jumbotron p:last-child {
   margin-bottom: 0;
 }
+
 .jumbotron-heading {
   font-weight: 300;
 }
+
 .jumbotron .container {
   max-width: 40rem;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
   text-shadow: 1px 1px 2px grey;
 }
+
 .jumbotron .lead {
   font-size: 38px;
 }
 
-/*Tablet generica vertical/horizontal*/
 @media (max-width: 991px) {
   .jumbotron {
     height: 50vh;
@@ -349,9 +396,8 @@ a.custom-card:hover {
     margin-top: 0;
     padding-top: 0rem;
   }
-  /*Comienzo seccion media query para products.html*/
   .navbar {
-    background-color: var(--color-naranja) !important;;
+    background-color: var(--color-naranja) !important;
   }
   .navbar-brand img {
     content: url('../img/logo-e-mercado-naranja.png');
@@ -370,18 +416,17 @@ a.custom-card:hover {
     text-align: center;
     margin-top: 0;
   }
-  /*Fin seccion media query para products.html*/
 }
-/*Mobile generico*/
+
 @media (max-width: 767px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
   }
 }
-/*Mobile chicos (ej: iPhone SE)*/
+
 @media (max-width: 375px) {
   .navbar {
-    background-color: var(--color-naranja) !important;;
+    background-color: var(--color-naranja) !important;
   }
   .navbar-brand img {
     content: url('../img/logo-e-mercado-naranja.png');
@@ -390,8 +435,6 @@ a.custom-card:hover {
     text-align: right;
     padding-right: 1rem;
   }
-
-  /*Comienzo seccion para login.html*/
   .logo-login {
     max-width: 300px;
     margin: 4rem auto 0 auto;
@@ -413,13 +456,9 @@ a.custom-card:hover {
   .imagen-macaco-login {
     display: none;
   }
-  /*Fin seccion para login.html*/
-
   footer .container {
     flex-direction: column;
   }
-
-  /*Comienzo seccion para index.html*/
   .jumbotron {
     background: url('../img/cover_back_mobile.png');
     background-size: 110%;
@@ -429,12 +468,10 @@ a.custom-card:hover {
     padding-top: 8rem;
     padding-bottom: 8rem;
   }
-
   .album {
     padding-top: 1rem !important;
     padding-bottom: 1rem !important;
   }
-
   footer {
     text-align: center;
     margin-top: 0;
@@ -442,9 +479,6 @@ a.custom-card:hover {
   .volver-arriba {
     display: none;
   }
-  /*Fin seccion para index.html*/
-
-  /*Comienzo seccion para categories.html*/
   .categories p {
     font-size: 1rem !important;
   }
@@ -456,7 +490,6 @@ a.custom-card:hover {
     font-size: 0.85rem !important;
     margin-bottom: 0.25rem !important;
   }
-
   .filtros input[type="number"] {
     width: 80px !important;
   }
@@ -465,25 +498,24 @@ a.custom-card:hover {
     font-size: 0.8rem !important;
     padding: 0.2rem 0.4rem !important;
   }
-
-  footer {
-    text-align: center;
-    margin-top: 0;
+  #product-info-container .card-img-top {
+    height: 200px;
   }
-  /*Fin seccion para categories.html*/
-
-  .volver-arriba {
-    display: none;
+  #carouselProduct .carousel-item img {
+    height: 200px;
+  }
+  #rating {
+    max-width: 100%;
+    padding: 0 15px;
   }
 }
 
-/*Comienzo seccion para products-info.html*/
+/* Estilos para product-info.html */
 #breadcrumb {
   font-size: 11px;
 }
 
 #rating-title {
-  /* color: #F09100; */
   display: inline-block;
   position: relative;
   font-size: 1.5rem;
@@ -512,7 +544,7 @@ a.custom-card:hover {
   align-items: flex-start;
 }
 
-.rating-radio p{
+.rating-radio p {
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
@@ -556,10 +588,3 @@ a.custom-card:hover {
   background-color: #d67c00;
   transition: background-color var(--transition-fast);
 }
-
-/*Fin seccion para products-info.html*/
-
-/*Fin responsive*/
-
-
-/********************************************************/

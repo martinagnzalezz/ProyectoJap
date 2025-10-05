@@ -1,5 +1,4 @@
 const productID = localStorage.getItem("productID");
-
 const RATINGS_KEY = `ratings_${productID}`;
 let listaRatings = JSON.parse(localStorage.getItem(RATINGS_KEY) || "[]");
 
@@ -8,85 +7,152 @@ console.log("RATINGS_KEY =", RATINGS_KEY);
 console.log("lo que hay guardado ya para este producto:", localStorage.getItem(RATINGS_KEY));
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (!productID) {
-    console.error("No se encontró productID en localStorage");
+  const productID = localStorage.getItem("productID");
+  const catID = localStorage.getItem("catID");
+
+  console.log("Loaded productID:", productID, "catID:", catID); // Debug log
+
+  if (!productID || !catID) {
+    console.error("Falta productID o catID en localStorage");
+    document.querySelector("#product-info-container").innerHTML = 
+      '<p class="text-center text-danger">Error: No se puede cargar el producto. Por favor, selecciona un producto desde <a href="products.html">Productos</a>.</p>';
+    document.getElementById("spinner-wrapper").style.display = "none";
     return;
   }
-  
+
   const urlPrd = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
-  
+  const urlCat = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
+
+  document.getElementById("spinner-wrapper").style.display = "block";
+
+  // Cargar producto principal
   fetch(urlPrd)
-  .then(response => response.json())
-  .then(producto => {
-    mostrarInfoProducto(producto);
-    ratingEstrellas();
-    formularioRating();
-    mostrarRatings();
-    
-  })
-  .catch(error => console.error("Error al cargar producto:", error));  
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+      return response.json();
+    })
+    .then(producto => {
+      console.log("Fetched product:", producto); 
+      mostrarInfoProducto(producto);
+      ratingEstrellas();
+      formularioRating();
+      mostrarRatings();
+      document.getElementById("spinner-wrapper").style.display = "none";
+    })
+    .catch(error => {
+      console.error("Error al cargar producto:", error);
+      document.querySelector("#product-info-container").innerHTML = 
+        '<p class="text-center text-danger">Error al cargar el producto. Intenta de nuevo desde <a href="products.html">Productos</a>.</p>';
+      document.getElementById("spinner-wrapper").style.display = "none";
+    });
+
+  // Cargar productos relacionados
+  fetch(urlCat)
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      console.log("Fetched related products:", data.products);
+      const relatedProducts = data.products.filter(p => String(p.id) !== String(productID));
+      mostrarProductosRelacionados(relatedProducts);
+      document.getElementById("spinner-wrapper").style.display = "none";
+    })
+    .catch(error => {
+      console.error("Error al cargar productos relacionados:", error);
+      document.querySelector("#carouselProduct .carousel-inner").innerHTML = 
+        '<div class="carousel-item active"><p class="text-center text-danger">Error al cargar productos relacionados.</p></div>';
+      document.getElementById("spinner-wrapper").style.display = "none";
+    });
 });
 
 function mostrarInfoProducto(producto) {
   const catID = localStorage.getItem("catID");
-  const container = document.querySelector("main .container");
+  const container = document.querySelector("main .container#product-info-container");
+
   container.innerHTML = `
     <div class="text-center my-4">
-    <h1 class="fw-bold">${producto.name}</h1>
-    <nav id="breadcrumb" class="mb-3 text-muted">
-    <a href="categories.html">Categorías</a> &gt;
-    <a 
-    href="products.html" 
-    onclick="localStorage.setItem('catID','${catID}');"
-    >
-    ${producto.category}
-    </a> &gt;
-    ${producto.name}
-    </nav>
+      <h1 class="fw-bold">${producto.name}</h1>
+      <nav id="breadcrumb" class="mb-3 text-muted">
+        <a href="categories.html">Categorías</a> &gt;
+        <a href="products.html" onclick="localStorage.setItem('catID','${catID}');">${producto.category}</a> &gt;
+        ${producto.name}
+      </nav>
     </div>
-
     <div class="card mx-auto shadow p-3 mb-5 bg-body rounded" style="max-width: 600px;">
-    <img id="main-image" src="${producto.images[0]}" class="card-img-top" alt="${producto.name}">
-    <div class="card-body text-center">
-    <p>${producto.description}</p>
-    <p><span class="fw-bold text-success">Precio:</span> ${producto.currency} ${producto.cost}</p>
-    <p>Vendidos: ${producto.soldCount}</p>
+      <img id="main-image" src="${producto.images[0] || 'img/placeholder.jpg'}" class="card-img-top" alt="${producto.name}">
+      <div class="card-body text-center">
+        <p>${producto.description}</p>
+        <p><span class="fw-bold text-success">Precio:</span> ${producto.currency} ${producto.cost}</p>
+        <p>Vendidos: ${producto.soldCount}</p>
+      </div>
     </div>
-    </div>
-
     <div class="d-flex justify-content-center flex-wrap gap-3">
-    ${producto.images
-      .map(img => `
-        <div class="card" style="width: 120px; height: 120px; overflow: hidden; cursor: pointer;">
-        <img src="${img}" class="card-img-top img-thumbnail" alt="Imagen extra" 
-        style="width: 100%; height: 100%; object-fit: contain;"
-        onclick="showImage('${img}')">
-        </div>
-    `).join("")}
+      ${producto.images
+        .map(img => `
+          <div class="card" style="width: 120px; height: 120px; overflow: hidden; cursor: pointer;">
+            <img src="${img || 'img/placeholder.jpg'}" class="card-img-top img-thumbnail" alt="Imagen extra" 
+                 style="width: 100%; height: 100%; object-fit: contain;" onclick="showImage('${img}')">
+          </div>
+        `).join("")}
     </div>
-    `;
+  `;
 
-    if (!document.getElementById("imageModal")) {
-      document.body.insertAdjacentHTML("beforeend", `
-        <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  if (!document.getElementById("imageModal")) {
+    document.body.insertAdjacentHTML("beforeend", `
+      <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content bg-transparent border-0">
         <img id="modal-image" src="" class="img-fluid rounded">
         </div>
-        </div>
-        </div>
-      `);
-    }
-      
-  // Actualizamos el título de la seccion rating con el nombre del producto.
+      </div>
+    `);
+  }
+
+  // Actualizamos el título de la sección rating con el nombre del producto.
   const tituloRating = document.getElementById("rating-title");
-  tituloRating.textContent = `Califica a ${producto.name}!`;  
+  if (tituloRating) {
+    tituloRating.textContent = `Califica a ${producto.name}!`;
+  }
+}
+
+function mostrarProductosRelacionados(lista) {
+  const carouselInner = document.querySelector("#carouselProduct .carousel-inner");
+
+  if (lista.length === 0) {
+    carouselInner.innerHTML = `
+      <div class="carousel-item active">
+        <img class="d-block w-100" src="img/placeholder.jpg" alt="No hay productos relacionados">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Sin productos relacionados</h5>
+          <p>No hay productos disponibles en esta categoría.</p>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  carouselInner.innerHTML = lista
+    .map((producto, index) => `
+      <div class="carousel-item ${index === 0 ? 'active' : ''}" onclick="verProducto(${producto.id})">
+        <img class="d-block w-100" src="${producto.image || 'img/placeholder.jpg'}" alt="${producto.name}">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>${producto.name}</h5>
+          <p>Precio: ${producto.currency} ${producto.cost} | Vendidos: ${producto.soldCount}</p>
+        </div>
+      </div>
+    `).join("");
 }
 
 function showImage(src) {
   document.getElementById("modal-image").src = src;
   const modal = new bootstrap.Modal(document.getElementById("imageModal"));
   modal.show();
+}
+
+function verProducto(id) {
+  localStorage.setItem("productID", id);
+  window.location.href = "product-info.html";
 }
 
 function ratingEstrellas() {
@@ -99,15 +165,15 @@ function ratingEstrellas() {
       estrellas.forEach(function(e) {
         if (parseInt(e.dataset.value, 10) <= ratingSeleccionado) {
           e.classList.remove("far");
-          e.classList.add("fas");
+          e.classList.add("fas", "text-warning");
         } else {
-          e.classList.remove("fas");
+          e.classList.remove("fas", "text-warning");
           e.classList.add("far");
         }
       });
     });
   });
-};
+}
 
 function formularioRating() {
   const btnEnviar = document.getElementById("btn-enviar");
@@ -124,7 +190,7 @@ function formularioRating() {
     const tiempoActual = new Date();
     const tiempoActualString = tiempoActual.toLocaleString();
 
-    //Validamos que se haya seleccionado un puntaje y escrito un comentario.
+    // Validamos que se haya seleccionado un puntaje y escrito un comentario.
     if (puntaje === 0) {
       alert("Por favor, selecciona una calificación con estrellas.");
       return;
@@ -137,21 +203,21 @@ function formularioRating() {
       alert("Por favor, escribe un comentario.");
       return;
     }
-    //Confirmación antes de enviar.
-    if (!confirm(`Estas segur@ de tu calificacion?\n\n⭐ ${puntaje}\n${radioFrase}\n"${comentario}"\n\nDeseas enviarlo?`)) {
+    // Confirmación antes de enviar.
+    if (!confirm(`¿Estás segur@ de tu calificación?\n\n⭐ ${puntaje}\n${radioFrase}\n"${comentario}"\n\n¿Deseas enviarlo?`)) {
       return;
     }
 
-    //Creamos el objeto rating y lo agregamos al array ratings.
+    // Creamos el objeto rating y lo agregamos al array ratings.
     const nuevoRating = {puntaje, radioFrase, comentario, tiempoActualString};
     listaRatings.push(nuevoRating);
 
-    //Guardamos el array actualizado en localStorage.
+    // Guardamos el array actualizado en localStorage.
     localStorage.setItem(RATINGS_KEY, JSON.stringify(listaRatings));
 
     mostrarRatings();
 
-    //Limpiamos el formulario.
+    // Limpiamos el formulario.
     estrellas.forEach(e => {
       e.classList.remove("fas", "text-warning");
       e.classList.add("far");
@@ -171,12 +237,12 @@ function mostrarRatings() {
   contenedor.id = "ratings-container";
   contenedor.classList.add("mt-4");
 
-  // Si todavía no hay reseñas guardadas, muestro un mensaje diciendolo
+  // Si todavía no hay reseñas guardadas, muestro un mensaje diciéndolo
   if (listaRatings.length === 0) {
     contenedor.innerHTML = `<p class="text-muted">Todavía no hay calificaciones para este producto.</p>`;
   } else {
-    // Si hay reseñas, las recorro en orden de las mas recientes a las mas antiguas
-    listaRatings.slice().reverse().forEach(rating => { // uso slice para no cambiar el orden original
+    // Si hay reseñas, las recorro en orden de las más recientes a las más antiguas
+    listaRatings.slice().reverse().forEach(rating => {
       // Creo un bloque (div) para cada reseña individual
       const item = document.createElement("div");
       item.classList.add("border", "p-3", "mb-2", "bg-white", "rounded");
@@ -198,8 +264,8 @@ function mostrarRatings() {
     });
   }
 
-  //Selecciono el contenedor principal de la página donde se van a mostrar las reseñas
-  const main = document.querySelector("main .container");
+  // Selecciono el contenedor principal de la página donde se van a mostrar las reseñas
+  const main = document.querySelector("main .container:last-child");
 
   let titulo = document.getElementById("titulo-reseñas");
   if (!titulo) {
@@ -210,7 +276,6 @@ function mostrarRatings() {
     main.appendChild(hr);
     main.appendChild(titulo);
   }
-  //Agrego el contenedor con todas las reseñas al main
+  // Agrego el contenedor con todas las reseñas al main
   main.appendChild(contenedor);
 }
-

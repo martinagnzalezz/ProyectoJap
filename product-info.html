@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
-
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
 </head>
-
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-    <img src="/img/logo e-mercado.png" alt="e-mercado" style="height:40px;">
-    </a>
+        <img src="img/logo e-mercado.png" alt="e-mercado" style="height:40px;">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -37,7 +34,7 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item">
-             <a class="nav-link" href="my-profile.html"><div id="mostrar-usuario"></div></a>
+            <a class="nav-link" href="my-profile.html"><div id="mostrar-usuario"></div></a>
           </li>
         </ul>
       </div>
@@ -45,40 +42,50 @@
   </nav>
   <main>
     <div class="container mt-5" id="product-info-container"></div>
-    <div class="container mt-5 border rounded shadow-sm p-4" id="product-info-review">
-      <h3 class="rating-title mb-4" id="rating-title">Califica el producto!</h3>
-      <div class="mb-3">
-        <!--Estrellas de puntaje-->
-        <div class="d-flex rating-estrella justify-content-center justify-content-sm-start mb-4" id="rating-estrella">
-          <i class="far fa-star" data-value="1" tabindex="0"></i>
-          <i class="far fa-star" data-value="2" tabindex="0"></i>
-          <i class="far fa-star" data-value="3" tabindex="0"></i>
-          <i class="far fa-star" data-value="4" tabindex="0"></i>
-          <i class="far fa-star" data-value="5" tabindex="0"></i>
-        </div>
-        <!--Radio de seleccion-->
-        <div class="rating-radio mb-4">
-          <p>Como conociste a este producto?</p>
-          <div class="d-flex rating-radio-options">
-            <label><input type=radio id="opt-personal" name="radio" value="El usuario posee este producto.">Lo compre para mi</label>
-            <label><input type=radio id="opt-otrolugar" name="radio" value="El usuario ha probado este producto antes.">Lo probe en otro lugar</label>
-            <label><input type=radio id="opt-nolotengo" name="radio" value="El usuario no posee este producto.">No lo tengo</label>
-          </div>
-        </div>
-        <!--Comentarios-->
-        <label for="rating-texto" class="rating-texto">Deja tu comentario:</label>
-        <textarea class="form-control" id="rating-texto" rows="3"></textarea>
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Productos Relacionados</h2>
+      <div id="carouselProduct" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner"></div>
+        <a class="carousel-control-prev" href="#carouselProduct" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselProduct" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </a>
       </div>
-      <!--Boton Enviar-->
-      <button id="btn-enviar" class="btn btn-primary mt-3">Enviar</button>
     </div>
+    <section id="rating" class="container mt-5">
+      <h3 id="rating-title">Califica el producto!</h3>
+      <div id="rating-estrella" class="rating-estrella mb-3">
+        <i class="far fa-star" data-value="1"></i>
+        <i class="far fa-star" data-value="2"></i>
+        <i class="far fa-star" data-value="3"></i>
+        <i class="far fa-star" data-value="4"></i>
+        <i class="far fa-star" data-value="5"></i>
+      </div>
+      <div class="rating-radio">
+        <p>¿Cómo conociste a este producto?</p>
+        <div class="rating-radio-options">
+          <label><input type="radio" name="radio" value="Lo compré para mí"> Lo compré para mí</label>
+          <label><input type="radio" name="radio" value="Lo probé en otro lugar"> Lo probé en otro lugar</label>
+          <label><input type="radio" name="radio" value="No lo tengo"> No lo tengo</label>
+        </div>
+      </div>
+      <div class="mt-3">
+        <p class="rating-texto">Deja tu comentario:</p>
+        <textarea id="rating-texto" class="form-control" rows="4"></textarea>
+      </div>
+      <button id="btn-enviar" class="btn mt-3">Enviar</button>
+    </section>
   </main>
   <footer class="text-muted border-top pt-3">
     <div class="container d-flex justify-content-between align-items-center">
       <p class="float-end">
         Este sitio forma parte de 
         <a href="https://jovenesaprogramar.edu.uy/" target="_blank">
-          <img src="/img/JAP.png" alt="Jóvenes a Programar" style="height:25px; margin-left:5px;">
+          <img src="img/JAP.png" alt="Jóvenes a Programar" style="height:25px; margin-left:5px;">
         </a>
       </p>
       <p class="float-end">
@@ -87,12 +94,10 @@
     </div>
   </footer>
   <div id="spinner-wrapper">
-    <div class="lds-ring">
-    </div>
+    <div class="lds-ring"></div>
   </div>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/product-info.js"></script>
 </body>
-
 </html>

@@ -102,9 +102,8 @@ function mostrarInfoProducto(producto) {
     document.body.insertAdjacentHTML("beforeend", `
       <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
-          <div class="modal-content bg-transparent border-0">
-            <img id="modal-image" src="" class="img-fluid rounded">
-          </div>
+        <div class="modal-content bg-transparent border-0">
+        <img id="modal-image" src="" class="img-fluid rounded">
         </div>
       </div>
     `);

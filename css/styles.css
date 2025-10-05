@@ -589,27 +589,27 @@ a.custom-card:hover {
   transition: background-color var(--transition-fast);
 }
 
-/* Carousel container */
+
 #carouselProduct {
-  max-width: 80vw; /* Compact width, adjust as needed (e.g., 70vw) */
+  max-width: 80vw; 
   margin: 0 auto;
 }
 
-/* Carousel images */
+
 #carouselProduct .carousel-item img {
-  max-height: 30rem; /* Default height, scales with viewport */
+  max-height: 30rem; 
   object-fit: contain;
   width: 100%;
 }
 
-/* Captions */
+
 #carouselProduct .carousel-caption {
   background: rgba(0, 0, 0, 0.6);
   padding: 0.5rem;
   font-size: 0.9rem;
 }
 
-/* Indicators */
+
 #carouselProduct .carousel-indicators li {
   background-color: #333;
   width: 0.5rem;
@@ -621,24 +621,23 @@ a.custom-card:hover {
   background-color: #007bff;
 }
 
-/* Clickable slides */
+
 #carouselProduct .carousel-item {
   cursor: pointer;
 }
 
-/* Mobile adjustments */
+
 @media (max-width: 576px) {
   #carouselProduct .carousel-item img {
-    max-height: 15rem; /* Smaller height for mobile */
+    max-height: 15rem; 
   }
 
   #carouselProduct .carousel-caption {
-    font-size: 0.7rem; /* Smaller captions */
+    font-size: 0.7rem; 
   }
 }
 
 #carouselProduct .carousel-control-prev-icon,
 #carouselProduct .carousel-control-next-icon {
-  filter: invert(0%) brightness(0%); /* Makes the white SVG black */
-  background-size: 1.5rem; /* Ensure arrow size is consistent */
+  filter: invert(0%) brightness(0%); 
 }

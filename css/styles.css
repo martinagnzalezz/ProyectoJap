@@ -32,13 +32,13 @@ nav a {
 /* Estilos para product-info.html */
 #product-info-container .card-img-top {
   height: 300px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 0.5rem;
 }
 
 #carouselProduct .carousel-item img {
   height: 300px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 0.5rem;
 }
 

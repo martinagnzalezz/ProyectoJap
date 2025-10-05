@@ -588,3 +588,57 @@ a.custom-card:hover {
   background-color: #d67c00;
   transition: background-color var(--transition-fast);
 }
+
+/* Carousel container */
+#carouselProduct {
+  max-width: 80vw; /* Compact width, adjust as needed (e.g., 70vw) */
+  margin: 0 auto;
+}
+
+/* Carousel images */
+#carouselProduct .carousel-item img {
+  max-height: 30rem; /* Default height, scales with viewport */
+  object-fit: contain;
+  width: 100%;
+}
+
+/* Captions */
+#carouselProduct .carousel-caption {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Indicators */
+#carouselProduct .carousel-indicators li {
+  background-color: #333;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+#carouselProduct .carousel-indicators .active {
+  background-color: #007bff;
+}
+
+/* Clickable slides */
+#carouselProduct .carousel-item {
+  cursor: pointer;
+}
+
+/* Mobile adjustments */
+@media (max-width: 576px) {
+  #carouselProduct .carousel-item img {
+    max-height: 15rem; /* Smaller height for mobile */
+  }
+
+  #carouselProduct .carousel-caption {
+    font-size: 0.7rem; /* Smaller captions */
+  }
+}
+
+#carouselProduct .carousel-control-prev-icon,
+#carouselProduct .carousel-control-next-icon {
+  filter: invert(0%) brightness(0%); /* Makes the white SVG black */
+  background-size: 1.5rem; /* Ensure arrow size is consistent */
+}

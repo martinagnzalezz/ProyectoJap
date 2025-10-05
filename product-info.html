@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
-
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
 </head>
-
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-    <img src="/img/logo e-mercado.png" alt="e-mercado" style="height:40px;">
-    </a>
+        <img src="img/logo e-mercado.png" alt="e-mercado" style="height:40px;">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -37,7 +34,7 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item">
-             <a class="nav-link" href="my-profile.html"><div id="mostrar-usuario"></div></a>
+            <a class="nav-link" href="my-profile.html"><div id="mostrar-usuario"></div></a>
           </li>
         </ul>
       </div>
@@ -45,13 +42,37 @@
   </nav>
   <main>
     <div class="container mt-5" id="product-info-container"></div>
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Productos Relacionados</h2>
+      <div id="carouselProduct" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://via.placeholder.com/800x400?text=Producto+1" class="d-block w-100" alt="Producto 1">
+          </div>
+          <div class="carousel-item">
+            <img src="https://via.placeholder.com/800x400?text=Producto+2" class="d-block w-100" alt="Producto 2">
+          </div>
+          <div class="carousel-item">
+            <img src="https://via.placeholder.com/800x400?text=Producto+3" class="d-block w-100" alt="Producto 3">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselProduct" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselProduct" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </a>
+      </div>
+    </div>
   </main>
   <footer class="text-muted border-top pt-3">
     <div class="container d-flex justify-content-between align-items-center">
       <p class="float-end">
         Este sitio forma parte de 
         <a href="https://jovenesaprogramar.edu.uy/" target="_blank">
-          <img src="/img/JAP.png" alt="Jóvenes a Programar" style="height:25px; margin-left:5px;">
+          <img src="img/JAP.png" alt="Jóvenes a Programar" style="height:25px; margin-left:5px;">
         </a>
       </p>
       <p class="float-end">
@@ -60,12 +81,10 @@
     </div>
   </footer>
   <div id="spinner-wrapper">
-    <div class="lds-ring">
-    </div>
+    <div class="lds-ring"></div>
   </div>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/product-info.js"></script>
 </body>
-
 </html>

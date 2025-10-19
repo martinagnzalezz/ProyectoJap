@@ -385,6 +385,7 @@ a.custom-card:hover {
   font-size: 38px;
 }
 
+
 @media (max-width: 991px) {
   .jumbotron {
     height: 50vh;
@@ -640,4 +641,135 @@ a.custom-card:hover {
 #carouselProduct .carousel-control-prev-icon,
 #carouselProduct .carousel-control-next-icon {
   filter: invert(0%) brightness(0%); 
+}
+
+
+/* modo claro */
+:root {
+  --bg-color: #f8f9fa;
+  --text-color: #212529;
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --border-color: #ccc;
+  --btn-bg: #53C0FB;
+  --btn-hover: #2e9dd8;
+  --form-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Modo oscuro */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --card-bg: #1f1f1f;
+  --input-bg: #2c2c2c;
+  --border-color: #444;
+  --btn-bg: #53C0FB;
+  --btn-hover: #1e8ac4;
+  --form-shadow: rgba(0, 0, 0, 0.6);
+}
+
+/* Estilos generales*/
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+footer {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-top: 1px solid var(--border-color);
+}
+
+/* Perfil del usuario*/
+#perfilForm {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px var(--form-shadow);
+  padding: 2rem 2.5rem;
+  width: 100%;
+  max-width: 600px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#perfilForm h2 {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+#perfilForm label {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+#perfilForm input[type="text"],
+#perfilForm input[type="email"],
+#perfilForm input[type="tel"],
+#perfilForm input[type="file"] {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#perfilForm input:focus {
+  border-color: var(--btn-bg);
+  box-shadow: 0 0 5px var(--btn-bg);
+  outline: none;
+}
+
+#perfilForm button {
+  background-color: var(--btn-bg);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#perfilForm button:hover {
+  background-color: var(--btn-hover);
+  transform: scale(1.02);
+}
+
+#fotoPerfil {
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border: 3px solid var(--btn-bg);
+  box-shadow: 0 0 10px rgba(83, 192, 251, 0.3);
+  transition: transform 0.3s;
+}
+
+#fotoPerfil:hover {
+  transform: scale(1.05);
+}
+
+#cargarFoto {
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.alerta-guardado {
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #4caf50;
+  display: none;
 }

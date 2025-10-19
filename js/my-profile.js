@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (valor) document.getElementById(campo).value = valor;
   });
 
-  //Cargar imagen de perfil guardada (si existe)
+  //Cargar imagen de perfil guardada 
   const imagenGuardada = localStorage.getItem("fotoPerfil");
   if (imagenGuardada) fotoPerfil.src = imagenGuardada;
 
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
     campos.forEach(campo => {
       localStorage.setItem(`perfil_${campo}`, document.getElementById(campo).value);
     });
-    alert("Datos guardados correctamente ✅");
+    alert("Datos guardados correctamente.");
   });
 
   //Guardar imagen de perfil
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 const modoSwitch = document.getElementById('modoSwitch'); // Switch de modo claro/oscuro
-const modoIcono = document.getElementById("modoIcono"); // Nuevo: el emoji del switch
+const modoIcono = document.getElementById("modoIcono"); // Nuevo emoji del switch
 
 
 // Función para actualizar el ícono según el modo
@@ -73,7 +73,7 @@ window.addEventListener('load', () => {
   } else {
     document.body.classList.add('light-mode');
   }
-  actualizarIconoModo(modoGuardado || 'claro'); // 🔁 Actualizar ícono al iniciar
+  actualizarIconoModo(modoGuardado || 'claro'); 
 });
 
 // Al cambiar el switch
@@ -81,10 +81,10 @@ modoSwitch.addEventListener('change', () => {
   if (modoSwitch.checked) {
     document.body.classList.replace('light-mode', 'dark-mode');
     localStorage.setItem('modo', 'oscuro');
-    actualizarIconoModo('oscuro'); // 🔁 Cambiar ícono
+    actualizarIconoModo('oscuro'); 
   } else {
     document.body.classList.replace('dark-mode', 'light-mode');
     localStorage.setItem('modo', 'claro');
-    actualizarIconoModo('claro'); // 🔁 Cambiar ícono
+    actualizarIconoModo('claro'); 
   }
 });

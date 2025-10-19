@@ -91,3 +91,4 @@ function verProducto(id) {
   localStorage.setItem("productID", id);
   window.location.href = "product-info.html";
 }
+

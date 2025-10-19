@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
       mostrarInfoProducto(producto);
       ratingEstrellas();
       formularioRating();
-      mostrarRatings();
       document.getElementById("spinner-wrapper").style.display = "none";
     })
     .catch(error => {
@@ -45,6 +44,25 @@ document.addEventListener("DOMContentLoaded", () => {
         '<p class="text-center text-danger">Error al cargar el producto. Intenta de nuevo desde <a href="products.html">Productos</a>.</p>';
       document.getElementById("spinner-wrapper").style.display = "none";
     });
+
+//carga los comentarios de la api
+    const urlComentarios = `https://japceibal.github.io/emercado-api/products_comments/${productID}.json`;
+
+fetch(urlComentarios)
+  .then(response => response.json())
+  .then(comentariosAPI => {
+    const comentariosLocales = listaRatings.map(rating => ({
+      user: "Usuario Anónimo",
+      score: rating.puntaje,
+      description: rating.comentario,
+      dateTime: rating.tiempoActualString
+    }));
+    const todosLosComentarios = comentariosLocales.concat(comentariosAPI);
+    mostrarComentariosAPI(todosLosComentarios); 
+  })
+  .catch(error => {
+    console.error("Error al cargar comentarios desde API:", error);
+  });
 
   // Cargar productos relacionados
   fetch(urlCat)
@@ -215,7 +233,20 @@ function formularioRating() {
     // Guardamos el array actualizado en localStorage.
     localStorage.setItem(RATINGS_KEY, JSON.stringify(listaRatings));
 
-    mostrarRatings();
+// Volvemos a mostrar todos los comentarios (API + locales)
+const urlComentarios = `https://japceibal.github.io/emercado-api/products_comments/${productID}.json`;
+fetch(urlComentarios)
+  .then(response => response.json())
+  .then(comentariosAPI => {
+    const comentariosLocales = listaRatings.map(rating => ({
+      user: "Usuario Anónimo",
+      score: rating.puntaje,
+      description: rating.comentario,
+      dateTime: rating.tiempoActualString
+    }));
+    const todosLosComentarios = comentariosLocales.concat(comentariosAPI);
+    mostrarComentariosAPI(todosLosComentarios);
+  });
 
     // Limpiamos el formulario.
     estrellas.forEach(e => {
@@ -227,55 +258,39 @@ function formularioRating() {
   });
 }
 
-function mostrarRatings() {
-  // Si ya existe un contenedor de reseñas anterior, lo elimino para evitar que se dupliquen
-  const viejoContenedor = document.getElementById("ratings-container");
-  if (viejoContenedor) viejoContenedor.remove();
 
-  // Creo un nuevo contenedor para las reseñas
-  const contenedor = document.createElement("div");
-  contenedor.id = "ratings-container";
-  contenedor.classList.add("mt-4");
-
-  // Si todavía no hay reseñas guardadas, muestro un mensaje diciéndolo
-  if (listaRatings.length === 0) {
-    contenedor.innerHTML = `<p class="text-muted">Todavía no hay calificaciones para este producto.</p>`;
-  } else {
-    // Si hay reseñas, las recorro en orden de las más recientes a las más antiguas
-    listaRatings.slice().reverse().forEach(rating => {
-      // Creo un bloque (div) para cada reseña individual
-      const item = document.createElement("div");
-      item.classList.add("border", "p-3", "mb-2", "bg-white", "rounded");
-
-      // Agrego dentro del bloque todos los campos
-      item.innerHTML = `
-        <div class="d-flex justify-content-between">
-          <div>
-            ${'⭐'.repeat(rating.puntaje)}${'☆'.repeat(5 - rating.puntaje)}
-          </div>
-          <small class="text-muted">${rating.tiempoActualString}</small>
-        </div>
-        <p class="mb-1"><em>Cómo lo conociste:</em> ${rating.radioFrase}</p>
-        <p class="mb-0">${rating.comentario}</p>
-      `;
-
-      // Agrego cada reseña al contenedor principal
-      contenedor.appendChild(item);
-    });
-  }
-
-  // Selecciono el contenedor principal de la página donde se van a mostrar las reseñas
+function mostrarComentariosAPI(comentarios) {
   const main = document.querySelector("main .container:last-child");
 
-  let titulo = document.getElementById("titulo-reseñas");
+  let titulo = document.getElementById("titulo-comentarios-todos");
   if (!titulo) {
-    const hr = document.createElement("hr");
     titulo = document.createElement("h3");
-    titulo.id = "titulo-reseñas";
-    titulo.textContent = "Reseñas del producto:";
-    main.appendChild(hr);
+    titulo.id = "titulo-comentarios-todos";
+    titulo.textContent = "Comentarios del producto:";
+    main.appendChild(document.createElement("hr"));
     main.appendChild(titulo);
   }
-  // Agrego el contenedor con todas las reseñas al main
+
+  let contenedor = document.getElementById("comentarios-api-container");
+  if (contenedor) contenedor.remove();
+
+  contenedor = document.createElement("div");
+  contenedor.id = "comentarios-api-container";
+
+  if (comentarios.length === 0) {
+    contenedor.innerHTML = `<p class="text-muted">Este producto aún no tiene comentarios.</p>`;
+  } else {
+    contenedor.innerHTML = comentarios.map(c => `
+      <div class="border p-3 mb-3 rounded bg-white">
+        <div class="d-flex justify-content-between">
+          <strong>${c.user}</strong>
+          <small class="text-muted">${c.dateTime}</small>
+        </div>
+        <div class="mb-1">${'⭐'.repeat(c.score)}${'☆'.repeat(5 - c.score)}</div>
+        <p class="mb-0">${c.description}</p>
+      </div>
+    `).join("");
+  }
+
   main.appendChild(contenedor);
 }

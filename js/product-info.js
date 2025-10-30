@@ -103,6 +103,7 @@ function mostrarInfoProducto(producto) {
         <p>${producto.description}</p>
         <p><span class="fw-bold text-success">Precio:</span> ${producto.currency} ${producto.cost}</p>
         <p>Vendidos: ${producto.soldCount}</p>
+        <button id="btn-comprar" class="btn btn-primary mt-3">Comprar</button>
       </div>
     </div>
     <div class="d-flex justify-content-center flex-wrap gap-3">
@@ -132,7 +133,31 @@ function mostrarInfoProducto(producto) {
   if (tituloRating) {
     tituloRating.textContent = `Califica a ${producto.name}!`;
   }
+
+
+  const btnComprar = document.getElementById("btn-comprar");
+
+    if (btnComprar) {
+        btnComprar.addEventListener("click", function() {
+            // Información del producto requerida para el carrito
+            const productoParaCarrito = {
+                id: producto.id, 
+                name: producto.name, 
+                cost: producto.cost, 
+                currency: producto.currency, 
+                image: producto.images[0] 
+            };
+
+            agregarAlCarrito(productoParaCarrito);
+
+            window.location.href = "cart.html"; 
+        });
+    }
 }
+
+
+
+
 
 function mostrarProductosRelacionados(lista) {
   const carouselInner = document.querySelector("#carouselProduct .carousel-inner");
@@ -318,7 +343,7 @@ window.addEventListener('load', () => {
   } else {
     document.body.classList.add('light-mode');
   }
-  actualizarIconoModo(modoGuardado || 'claro'); // 🔁 Actualizar ícono al iniciar
+  actualizarIconoModo(modoGuardado || 'claro');
 });
 
 // Al cambiar el switch
@@ -326,12 +351,27 @@ modoSwitch.addEventListener('change', () => {
   if (modoSwitch.checked) {
     document.body.classList.replace('light-mode', 'dark-mode');
     localStorage.setItem('modo', 'oscuro');
-    actualizarIconoModo('oscuro'); // 🔁 Cambiar ícono
+    actualizarIconoModo('oscuro'); 
   } else {
     document.body.classList.replace('dark-mode', 'light-mode');
     localStorage.setItem('modo', 'claro');
-    actualizarIconoModo('claro'); // 🔁 Cambiar ícono
+    actualizarIconoModo('claro'); 
   }
 });
 
-  
+
+function agregarAlCarrito(producto) {
+    let carrito = JSON.parse(localStorage.getItem('carritoProductos')) || [];
+
+    const indiceExistente = carrito.findIndex(p => String(p.id) === String(producto.id));
+
+    if (indiceExistente !== -1) {
+        carrito[indiceExistente].quantity++;
+    } else {
+        producto.quantity = 1; 
+        carrito.push(producto);
+    }
+
+    localStorage.setItem('carritoProductos', JSON.stringify(carrito));
+    console.log("Producto agregado al carrito:", producto.name);
+}

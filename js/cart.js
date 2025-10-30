@@ -20,7 +20,7 @@ window.addEventListener('load', () => {
   } else {
     document.body.classList.add('light-mode');
   }
-  actualizarIconoModo(modoGuardado || 'claro'); // 🔁 Actualizar ícono al iniciar
+  actualizarIconoModo(modoGuardado || 'claro'); 
 });
 
 // Al cambiar el switch
@@ -28,10 +28,12 @@ modoSwitch.addEventListener('change', () => {
   if (modoSwitch.checked) {
     document.body.classList.replace('light-mode', 'dark-mode');
     localStorage.setItem('modo', 'oscuro');
-    actualizarIconoModo('oscuro'); // 🔁 Cambiar ícono
+    actualizarIconoModo('oscuro'); 
   } else {
     document.body.classList.replace('dark-mode', 'light-mode');
     localStorage.setItem('modo', 'claro');
-    actualizarIconoModo('claro'); // 🔁 Cambiar ícono
+    actualizarIconoModo('claro');
   }
 });
+
+

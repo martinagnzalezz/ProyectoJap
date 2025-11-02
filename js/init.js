@@ -45,3 +45,20 @@ let getJSONData = function(url){
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('mostrar-usuario').textContent = sessionStorage.getItem('usuario');
 });
+
+function actualizarBadgeCarrito() {
+  const badge = document.getElementById("cart-count");
+  if (!badge) return;
+
+  const carrito = JSON.parse(localStorage.getItem("carritoProductos")) || [];
+  const totalUnidades = carrito.reduce((sum, prod) => sum + (prod.quantity||0), 0);
+  badge.textContent = totalUnidades;
+
+    if (totalUnidades === 0) {
+    badge.classList.add("d-none");
+  } else {
+    badge.classList.remove("d-none");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", actualizarBadgeCarrito);

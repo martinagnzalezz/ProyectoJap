@@ -1,8 +1,6 @@
 const modoSwitch = document.getElementById('modoSwitch'); // Switch de modo claro/oscuro
-const modoIcono = document.getElementById("modoIcono"); // Nuevo: el emoji del switch
+const modoIcono = document.getElementById("modoIcono");
 
-
-// Función para actualizar el ícono según el modo
 function actualizarIconoModo(modo) {
   if (modo === 'oscuro') {
     modoIcono.textContent = '🌙';
@@ -36,4 +34,26 @@ modoSwitch.addEventListener('change', () => {
   }
 });
 
+
+document.addEventListener("DOMContentLoaded", () => {
+  const tbody = document.getElementById("cart-table-body");
+  const carrito = JSON.parse(localStorage.getItem("carritoProductos")) || [];
+
+  if (carrito.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Tu carrito está vacío.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = carrito.map(p => `
+    <tr>
+      <td><img src="${p.image}" alt="${p.name}" width="80" class="img-thumbnail"></td>
+      <td>${p.name}</td>
+      <td>${p.cost} <span class="currency">${p.currency}</span></td>
+      <td>
+        <input type="number" class="form-control quantity" value="${p.quantity}" min="1" style="width:70px;">
+      </td>
+      <td class="subtotal">${p.cost * p.quantity} <span class="currency">${p.currency}</span></td>
+    </tr>
+  `).join('');
+});
 

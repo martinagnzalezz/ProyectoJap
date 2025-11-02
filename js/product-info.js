@@ -157,8 +157,6 @@ function mostrarInfoProducto(producto) {
 
 
 
-
-
 function mostrarProductosRelacionados(lista) {
   const carouselInner = document.querySelector("#carouselProduct .carousel-inner");
 
@@ -321,10 +319,10 @@ function mostrarComentariosAPI(comentarios) {
 }
 
 const modoSwitch = document.getElementById('modoSwitch'); // Switch de modo claro/oscuro
-const modoIcono = document.getElementById("modoIcono"); // Nuevo: el emoji del switch
+const modoIcono = document.getElementById("modoIcono"); 
 
 
-// Función para actualizar el ícono según el modo
+
 function actualizarIconoModo(modo) {
   if (modo === 'oscuro') {
     modoIcono.textContent = '🌙';

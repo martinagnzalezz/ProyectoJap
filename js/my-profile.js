@@ -51,10 +51,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 const modoSwitch = document.getElementById('modoSwitch'); // Switch de modo claro/oscuro
-const modoIcono = document.getElementById("modoIcono"); // Nuevo emoji del switch
+const modoIcono = document.getElementById("modoIcono"); 
 
 
-// Función para actualizar el ícono según el modo
+
 function actualizarIconoModo(modo) {
   if (modo === 'oscuro') {
     modoIcono.textContent = '🌙';

@@ -69,6 +69,106 @@
         </table>
       </div>
 
+      <h5>Tipo de envío</h5>
+      <div class="mb-4 ps-3">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="envio" value="15" id="premium" checked>
+          <label class="form-check-label" for="premium">Premium 2 a 5 días (15%)</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="envio" value="7" id="express">
+          <label class="form-check-label" for="express">Express 5 a 8 días (7%)</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="envio" value="5" id="standard">
+          <label class="form-check-label" for="standard">Standard 12 a 15 días (5%)</label>
+        </div>
+      </div>
+
+    <!-- BOTONES MODALES -->
+<div class="mt-4 mb-4">
+  <button class="btn btn-outline-secondary me-3" data-bs-toggle="modal" data-bs-target="#modalDireccion">
+    Dirección de envío
+  </button>
+  <button class="btn btn-outline-secondary me-3" data-bs-toggle="modal" data-bs-target="#modalPago">
+    Forma de pago
+  </button>
+  <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalCostos">
+    Ver costos
+  </button>
+</div>
+
+<!-- MODAL DIRECCIÓN -->
+<div class="modal fade" id="modalDireccion" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Dirección de envío</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control mb-2" placeholder="Departamento">
+        <input type="text" class="form-control mb-2" placeholder="Localidad">
+        <input type="text" class="form-control mb-2" placeholder="Calle">
+        <input type="text" class="form-control mb-2" placeholder="Número">
+        <input type="text" class="form-control mb-2" placeholder="Esquina (opcional)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL FORMA DE PAGO-->
+<div class="modal fade" id="modalPago">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Forma de pago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="pago" id="tarj" checked>
+          <label class="form-check-label" for="tarj">Tarjeta de crédito</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="pago" id="trans">
+          <label class="form-check-label" for="trans">Transferencia bancaria</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL COSTOS -->
+<div class="modal fade" id="modalCostos">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Resumen de costos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Subtotal:</strong> <span id="subtotal-modal"></span></p>
+        <p><strong>Envío:</strong> <span id="envio-modal"></span></p>
+        <hr>
+        <p><strong>Total:</strong> <span id="total-modal"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
       <div class="text-end mt-3">
         <button class="btn btn-success">Finalizar compra</button>
       </div>

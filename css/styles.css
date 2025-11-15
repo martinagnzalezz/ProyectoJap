@@ -773,3 +773,7 @@ footer {
   color: #4caf50;
   display: none;
 }
+
+.is-invalid {
+  border-color: red;
+}

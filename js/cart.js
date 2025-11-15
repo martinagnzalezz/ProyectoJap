@@ -63,7 +63,94 @@ document.addEventListener("DOMContentLoaded", () => {
   `).join("");
 
   actualizarSubtotal();
+
+//cambios en el envio
+  document.querySelectorAll('input[name="envio"]').forEach(radio => {
+  radio.addEventListener("change", () => {
+
+    //actulizar el costo cuando se cambia el metodo de envio
+    actualizarCostos();
+  });
 });
+  // boton finalizar compra
+  document.getElementById("finalizar-compra").addEventListener("click", () => {
+    if (validarFormulario()) {
+      // mostrar mensaje de compra exitosa
+      alert("Compra realizada con éxito! Gracias por tu compra.");
+      // limpiar carrito después de la compra
+      localStorage.removeItem("carritoProductos");
+      // redirigir a la pagina principal al terminar la compra
+      window.location.href = "index.html"; 
+    } else {
+      alert("Error: Faltan campos por completar.");
+    }
+  });
+});
+
+// funcion para validar el formulario antes de finalizar la compra
+function validarFormulario() {
+  let valid = true;
+
+  // validar la direccion
+  const direccionInputs = document.querySelectorAll("#modalDireccion input");
+  let direccionCompleta = true;
+  direccionInputs.forEach(input => {
+    if (input.value.trim() === "") {
+      direccionCompleta = false;
+      input.classList.add("is-invalid");  
+    } else {
+      input.classList.remove("is-invalid");
+    }
+  });
+  
+  if (!direccionCompleta) {
+    alert("Por favor, complete todos los campos de la dirección.");
+    valid = false;
+  }
+
+  // validar el tipo de envio
+  const envioSeleccionado = document.querySelector('input[name="envio"]:checked');
+  if (!envioSeleccionado) {
+    alert("Por favor, seleccione un tipo de envío.");
+    valid = false;
+  }
+
+  // validar la cantidad de productos
+  const cantidades = document.querySelectorAll(".quantity");
+  cantidades.forEach(input => {
+    const cantidad = parseInt(input.value, 10);
+    if (cantidad <= 0 || isNaN(cantidad)) {
+      input.classList.add("is-invalid"); 
+      valid = false;
+    } else {
+      input.classList.remove("is-invalid");
+    }
+  });
+
+  // validar la forma de pago
+  const pagoSeleccionado = document.querySelector('input[name="pago"]:checked');
+  if (!pagoSeleccionado) {
+    alert("Por favor, seleccione una forma de pago.");
+    valid = false;
+  } else {
+    const camposPago = document.querySelectorAll(`#modalPago input:checked + input`);
+    let camposPagoCompletos = true;
+    camposPago.forEach(input => {
+      if (input.value.trim() === "") {
+        camposPagoCompletos = false;
+        input.classList.add("is-invalid");  
+      } else {
+        input.classList.remove("is-invalid");
+      }
+    });
+    if (!camposPagoCompletos) {
+      alert("Por favor, complete los campos de pago.");
+      valid = false;
+    }
+  }
+
+  return valid;
+}
 
 function actualizarSubtotal() {
   document.querySelectorAll("#cart-table-body .quantity")
@@ -76,7 +163,7 @@ function actualizarSubtotal() {
         const cantidad  = parseInt(ev.target.value, 10) || 0;
         const subtotal  = (precio * cantidad).toFixed(2);
 
-        // actualiza el subtotal en pantalla
+        // actualiza el subtotal 
         fila.querySelector(".subtotal").innerHTML =
           `${subtotal} ` +
           fila.querySelector(".subtotal .currency").outerHTML;
@@ -88,11 +175,13 @@ function actualizarSubtotal() {
           return p;
         });
         localStorage.setItem("carritoProductos", JSON.stringify(carrito));
+
+        //llamar a actualizarCostos despues de cambiar la cantidad
+        actualizarCostos();
       });
-      actualizarBadgeCarrito();
     });
 
-  // listener para el botón “Eliminar”
+  // listener para el boton eliminar
   document.querySelectorAll("#cart-table-body .remove-item")
     .forEach(btn => {
       btn.addEventListener("click", ev => {
@@ -106,6 +195,38 @@ function actualizarSubtotal() {
         let carrito = JSON.parse(localStorage.getItem("carritoProductos"));
         carrito = carrito.filter(p => String(p.id) !== prodID);
         localStorage.setItem("carritoProductos", JSON.stringify(carrito));
+        
+        // llamar a actualizarCostos despues de eliminar el producto
+        actualizarCostos();
       });
     });
+    //llamar a actualizarCostos al cargar la pagina
+    actualizarCostos();
+}
+
+
+
+function actualizarCostos() {
+  // obtener los productos del carrito
+  let carrito = JSON.parse(localStorage.getItem("carritoProductos")) || [];
+  
+  // Calcular el subtotal (suma de los subtotales de cada producto)
+  let subtotal = carrito.reduce((total, producto) => {
+    return total + (producto.cost * producto.quantity);
+  }, 0);
+  
+  // obtener el porcentaje del envio seleccionado
+  let envioSeleccionado = document.querySelector('input[name="envio"]:checked');
+  let porcentajeEnvio = envioSeleccionado ? parseFloat(envioSeleccionado.value) : 0;
+
+  // calcular el costo de envio
+  let costoEnvio = (subtotal * (porcentajeEnvio / 100)).toFixed(2);
+  
+  // calcular el total que es el subtotal mas el costo de envio
+  let total = (subtotal + parseFloat(costoEnvio)).toFixed(2);
+
+  // actualizar los valores en el modal
+  document.getElementById("subtotal-modal").textContent = `${subtotal.toFixed(2)} USD`;
+  document.getElementById("envio-modal").textContent = `${costoEnvio} USD`;
+  document.getElementById("total-modal").textContent = `${total} USD`;
 }

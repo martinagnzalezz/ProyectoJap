@@ -1,10 +1,11 @@
-const CATEGORIES_URL = "https://japceibal.github.io/emercado-api/cats/cat.json";
-const PUBLISH_PRODUCT_URL = "https://japceibal.github.io/emercado-api/sell/publish.json";
-const PRODUCTS_URL = "https://japceibal.github.io/emercado-api/cats_products/";
-const PRODUCT_INFO_URL = "https://japceibal.github.io/emercado-api/products/";
-const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/products_comments/";
-const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
-const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
+const CATEGORIES_URL = "http://localhost:5000/cats/cat.json";
+const PUBLISH_PRODUCT_URL = "http://localhost:5000/sell/publish.json";
+const PRODUCTS_URL = "http://localhost:5000/cats_products/";
+const PRODUCT_INFO_URL = "http://localhost:5000/products/";
+const PRODUCT_INFO_COMMENTS_URL = "http://localhost:5000/products_comments/";
+const CART_INFO_URL = "http://localhost:5000/user_cart/";    
+const CART_BUY_URL = "http://localhost:5000/cart/buy.json";
+
 const EXT_TYPE = ".json";
 
 let showSpinner = function(){
@@ -40,8 +41,7 @@ let getJSONData = function(url){
     });
 }
 
-
-//mostrar el nombre de usuario en la barra de navegacion
+// Mostrar el nombre de usuario en la barra de navegación
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('mostrar-usuario').textContent = sessionStorage.getItem('usuario');
 });
@@ -54,7 +54,7 @@ function actualizarBadgeCarrito() {
   const totalUnidades = carrito.reduce((sum, prod) => sum + (prod.quantity||0), 0);
   badge.textContent = totalUnidades;
 
-    if (totalUnidades === 0) {
+  if (totalUnidades === 0) {
     badge.classList.add("d-none");
   } else {
     badge.classList.remove("d-none");

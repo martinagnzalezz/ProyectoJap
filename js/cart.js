@@ -63,7 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
   `).join("");
 
   actualizarSubtotal();
-
+  });
+  
 //cambios en el envio
   document.querySelectorAll('input[name="envio"]').forEach(radio => {
   radio.addEventListener("change", () => {
@@ -73,19 +74,25 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
   // boton finalizar compra
-  document.getElementById("finalizar-compra").addEventListener("click", () => {
-    if (validarFormulario()) {
-      // mostrar mensaje de compra exitosa
-      alert("Compra realizada con éxito! Gracias por tu compra.");
-      // limpiar carrito después de la compra
-      localStorage.removeItem("carritoProductos");
-      // redirigir a la pagina principal al terminar la compra
-      window.location.href = "index.html"; 
-    } else {
-      alert("Error: Faltan campos por completar.");
-    }
-  });
+document.getElementById("finalizar-compra").addEventListener("click", async () => {
+  if (!validarFormulario()) {
+    alert("Error: Faltan campos por completar.");
+    return;
+  }
+
+  const exito = await enviarCarritoAlServidor();
+
+  if (exito) {
+    alert("Compra realizada con éxito! Gracias por tu compra.");
+    // limpiar carrito después de la compra
+    localStorage.removeItem("carritoProductos");
+    // redirigir a la pagina principal al terminar la compra
+    window.location.href = "index.html";
+  } else {
+    alert("Ocurrió un error al registrar la compra.");
+  }
 });
+
 
 // funcion para validar el formulario antes de finalizar la compra
 function validarFormulario() {
@@ -151,6 +158,65 @@ function validarFormulario() {
 
   return valid;
 }
+
+async function enviarCarritoAlServidor() {
+  const carrito = JSON.parse(localStorage.getItem("carritoProductos")) || [];
+  if (carrito.length === 0) return false;
+
+  const token = sessionStorage.getItem("token");
+
+  // Dirección: concatenamos los inputs del modal
+  const direccionInputs = document.querySelectorAll("#modalDireccion input");
+  const direccion = Array.from(direccionInputs)
+    .map(i => i.value.trim())
+    .filter(v => v !== "")
+    .join(" - ");
+
+  // Tomar valores ya calculados en el modal
+  const subtotalTexto = document.getElementById("subtotal-modal").textContent.replace(" USD", "");
+  const totalTexto = document.getElementById("total-modal").textContent.replace(" USD", "");
+  const subtotal = parseFloat(subtotalTexto) || 0;
+  const total = parseFloat(totalTexto) || 0;
+
+  const payload = {
+    cliente: {
+      nombre: sessionStorage.getItem("usuario") || "invitado",
+      apellido: null,
+      email: null
+    },
+    carrito: {
+      moneda: "USD",
+      total: total,
+      items: carrito
+    },
+    compra: {
+      direccion: direccion,
+      subtotal: subtotal
+    }
+  };
+
+  try {
+    const res = await fetch("http://localhost:5000/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      console.error(await res.text());
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
 
 function actualizarSubtotal() {
   document.querySelectorAll("#cart-table-body .quantity")

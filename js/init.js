@@ -18,12 +18,19 @@ let hideSpinner = function(){
 
 let getJSONData = function(url){
     let result = {};
+
+    const token = sessionStorage.getItem("token");
+
     showSpinner();
-    return fetch(url)
+    return fetch(url, {
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    })
     .then(response => {
       if (response.ok) {
         return response.json();
-      }else{
+      } else {
         throw Error(response.statusText);
       }
     })

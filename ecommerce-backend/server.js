@@ -1,7 +1,8 @@
 // server.js
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
+const path = require('path'); 
+const verificarToken = require('./authMiddleware');
 
 const app = express();
 const PORT = 5000;
@@ -10,13 +11,18 @@ app.use(cors());
 app.use(express.json());
 
 
-app.use('/', express.static(path.join(__dirname, 'data')));
+// Rutas públicas
+app.use('/public', express.static(path.join(__dirname, 'data')));
+app.use(require('./auth'));
 
-
-app.get('/', (req, res) => {
-  res.send('Backend del ecommerce funcionando. Usa las rutas como /products/663.json');
+// Ruta protegida
+app.get('/productos-protegidos', verificarToken, (req, res) => {
+    res.json({
+        message: "Acceso permitido",
+        user: req.user, // Info del usuario tomada del token
+    });
 });
 
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
